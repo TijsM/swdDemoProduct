@@ -6,7 +6,6 @@ import * as consts from "../../constants/airtable";
 
 
 export default function Product(props) {
-
   let jsx = props.data.Alternatives.map((id) => {
     return <AlternativeProduct
     id = {id}/>
