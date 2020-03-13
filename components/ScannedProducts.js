@@ -5,31 +5,6 @@ import Product from "../components/Product/Product";
 
 
 export default function ScannedCodes(props) {
-  // const [productAlternatives, setProductAlternatives] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await getProductAlternatives();
-  //     setProductAlternatives(result);
-  //   };
-  //   fetchData();
-  // }, []);
-
-
-  // const getAlternativesProduct = (barcode) =>  {    
-  //   let alternatives = null;
-
-    
-  //   productAlternatives.forEach((productAlternative) => {
-  //     if(productAlternative.fields.OriginalProducts){
-  //       if(productAlternative.fields.OriginalProducts.includes(barcode)){
-  //         alternatives = productAlternative.fields;
-  //       }
-  //     }
-  //   })
-  //   return alternatives
-  // }
-
 
   const productJSX = props.products.map(prod => {
     return (
@@ -41,8 +16,7 @@ export default function ScannedCodes(props) {
       />
     );
   });
-
-  return productJSX;
+  return <ScrollView>{productJSX}</ScrollView>
 }
 
 const styles = StyleSheet.create({
