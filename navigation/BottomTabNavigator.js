@@ -12,7 +12,7 @@ export default function BottomTabNavigator({ navigation, route }) {
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
 
-  navigation.setOptions({ headerTitle: 'foodcoach' });
+  navigation.setOptions({ headerTitle: 'Be smart with food' });
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>

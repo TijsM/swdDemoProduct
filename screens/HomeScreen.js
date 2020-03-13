@@ -1,27 +1,63 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Product from "../components/Product/Product";
 import { ScrollView } from "react-native-gesture-handler";
+import { getProducts, getProductAlternatives } from "../src/airtable";
 
 export default function HomeScreen() {
+  const [products, setProducts] = useState([]);
+  const [productAlternatives, setProductAlternatives] = useState([]);
+
+  let productsJSX = null;
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getProducts();
+      setProducts(result);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getProductAlternatives();
+      setProductAlternatives(result);
+    };
+    fetchData();
+  }, []);
+
+
+  const getAlternativesProduct = (barcode) =>  {    
+    let alternatives = null;
+    let category;
+    productAlternatives.forEach((productAlternative) => {
+      if(productAlternative.fields.OriginalProducts){
+        if(productAlternative.fields.OriginalProducts.includes(barcode)){
+          // console.log('found')
+          // console.log(productAlternative.fields)
+          alternatives = productAlternative.fields;
+        }
+      }
+    })
+    return alternatives
+
+  }
+
+  productsJSX = products.map(prod => {
+    return (
+      <Product
+        key={Math.random()}
+        name={prod.fields.Product}
+        id={prod.id}
+        alternatives = {getAlternativesProduct(prod.id)}
+      />
+    );
+  });
+
+
   return (
     <ScrollView>
-      <Product 
-        productName="test product"
-        imageUri="https://images.unsplash.com/photo-1532109088195-681b71de5705?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=582&q=80"
-        score="5,2"
-        kcal="237"
-        points="12"
-        description="Chocolate is a treat, but nbetter alternatives are available with as much taste"
-      ></Product>
-      <Product 
-        productName="test product"
-        imageUri="https://images.unsplash.com/photo-1532109088195-681b71de5705?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=582&q=80"
-        score="5,2"
-        kcal="237"
-        points="12"
-        description="Chocolate is a treat, but nbetter alternatives are available with as much taste"
-      ></Product>
+      {productsJSX}
+      {/* <Product id="dslkfjsqdmfkj" /> */}
     </ScrollView>
   );
 }
