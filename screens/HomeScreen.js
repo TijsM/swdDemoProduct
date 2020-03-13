@@ -28,29 +28,26 @@ export default function HomeScreen() {
 
   const getAlternativesProduct = (barcode) =>  {    
     let alternatives = null;
-    let category;
     productAlternatives.forEach((productAlternative) => {
       if(productAlternative.fields.OriginalProducts){
         if(productAlternative.fields.OriginalProducts.includes(barcode)){
-          // console.log('found')
-          // console.log(productAlternative.fields)
           alternatives = productAlternative.fields;
         }
       }
     })
     return alternatives
-
   }
 
   productsJSX = products.map(prod => {
-    return (
-      <Product
-        key={Math.random()}
-        name={prod.fields.Product}
-        id={prod.id}
-        alternatives = {getAlternativesProduct(prod.id)}
-      />
-    );
+    return <Text key={Math.random()}>prod: edit in homescreen line 43</Text>
+    // return (
+    //   <Product
+    //     key={Math.random()}
+    //     name={prod.fields.Product}
+    //     id={prod.id}
+    //     alternatives = {getAlternativesProduct(prod.id)}
+    //   />
+    // );
   });
 
 

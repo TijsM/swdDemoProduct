@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  Button,
-  View,
-  Modal,
-  TouchableHighlight
-} from "react-native";
+import { StyleSheet, Text, Button, View, Modal } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import ScannedCodes from "../components/ScannedCodes";
-import axios from "../axios";
+import { getProducts, getProductAlternatives } from "../src/airtable";
+import ScannedProducts from "../components/ScannedProducts";
 
 export default function ScanScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [modalVisible, setModalVisible] = useState(true);  
-  const [scannedCodes, setScannedCodes] = useState([]);
+  const [modalVisible, setModalVisible] = useState(true);
+  const [scannedProducts, setScannedProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [productAlternatives, setProductAlternatives] = useState([]);
 
-
-  // useEffetct(()=>{}, []) without values between the squared brackets will make sure this code is triggered when the component is loaded
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -26,42 +19,38 @@ export default function ScanScreen() {
     })();
   }, []);
 
- 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getProducts();
+      setProducts(result);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getProductAlternatives();
+      setProductAlternatives(result);
+    };
+    fetchData();
+  }, []);
 
   //when the code was scanned successfully, give a message with the url
-  const handleBarCodeScanned = async({ type, data }) => {
+  const handleBarCodeScanned = async ({ type, data }) => {
+    console.log("scanned");
     setScanned(true);
 
-    let _scannedCodes = [...scannedCodes];
-    _scannedCodes.push({
-      date: new Date().toISOString(),
-      type,
-      data
+    const productFromBarcode = products.find(prod => {
+      return prod.fields.Barcode.text === data;
     });
 
-    axios.post("https://demonstratorrn.firebaseio.com/scans.json", {
-      date: new Date().toISOString(),
-      data,
-      type
-    });
-
-    await getNutritionInfo(data);
-    setScannedCodes(_scannedCodes);
+    const _scannedProds = [...scannedProducts];
+    _scannedProds.push(productFromBarcode);
+    setScannedProducts(_scannedProds);
 
     setModalVisible(false);
     setScanned(false);
   };
-
-  const getNutritionInfo = async(data) => {
-    const res = await axios.post(`https://world.openfoodfacts.org/api/v0/product/${data}.json`);
-
-    console.log(res.data.product)
-    console.log('---------------')
-    console.log(res.data.product.nutriscore_grade)
-  }
-
-
-
 
   //checking permission
   if (hasPermission === null) {
@@ -110,7 +99,7 @@ export default function ScanScreen() {
         )}
       </Modal>
 
-      <ScannedCodes codes={scannedCodes}></ScannedCodes>
+      <ScannedProducts products={scannedProducts} />
 
       <Button
         title={"Open camera"}

@@ -1,13 +1,18 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import AlternativeProduct from "./AlternativeProduct";
+import * as consts from "../../constants/airtable";
+
 
 export default function Product(props) {
+
+
+  
   return (
     <View style={styles.container}>
-      <Text>name: {props.name}</Text>
+      <Text>name: {props.data.Product}</Text>
+      <Text>barcode: {props.data.Barcode.text}</Text>
       <Text>id: {props.id}</Text>
-      {props.alternatives ? <AlternativeProduct product={props.alternatives} /> : null}
     </View>
   );
 }
@@ -18,6 +23,6 @@ const styles = StyleSheet.create({
     width: "90%",
     marginLeft: "5%",
     borderRadius: 16,
-    marginTop: 25
+    marginTop: 30
   }
 });
