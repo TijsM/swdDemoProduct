@@ -5,7 +5,6 @@ import Product from "../components/Product/Product";
 
 
 export default function ScannedCodes(props) {
-
   const productJSX = props.products.map(prod => {
     return (
       <Product
@@ -18,14 +17,3 @@ export default function ScannedCodes(props) {
   });
   return <ScrollView>{productJSX}</ScrollView>
 }
-
-const styles = StyleSheet.create({
-  card: {
-    width: "80%",
-    marginLeft: "10%",
-    backgroundColor: "white",
-    marginVertical: 20,
-    borderRadius: 15,
-    padding: 20
-  }
-});

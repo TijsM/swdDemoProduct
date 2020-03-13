@@ -39,15 +39,15 @@ export default function HomeScreen() {
   }
 
   productsJSX = products.map(prod => {
-    return <Text key={Math.random()}>prod: edit in homescreen line 43</Text>
-    // return (
-    //   <Product
-    //     key={Math.random()}
-    //     name={prod.fields.Product}
-    //     id={prod.id}
-    //     alternatives = {getAlternativesProduct(prod.id)}
-    //   />
-    // );
+    // return <Text key={Math.random()}>prod: edit in homescreen line 43</Text>
+    console.log(JSON.stringify(prod));
+    return (
+      <Product
+      key={Math.random()}
+      data={prod.fields}
+      id={prod.id}
+      />
+    );
   });
 
 

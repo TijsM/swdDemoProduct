@@ -15,16 +15,8 @@ export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: 'Be smart with food' });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
-      <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}  
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
-        }}
-      />
-      <BottomTab.Screen
+    <BottomTab.Navigator initialRouteName={ScanScreen}>
+       <BottomTab.Screen
         name="Scan"
         component={ScanScreen} 
         options={{
@@ -32,19 +24,15 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-camera" />,
         }}
       />
+      <BottomTab.Screen
+        name="Home"
+        component={HomeScreen}  
+        options={{
+          title: 'All products',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
+        }}
+      />
+     
     </BottomTab.Navigator>
   );
-}
-
-function getHeaderTitle(route) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
-
-  switch (routeName) {
-    case 'Home':
-      return 'FoodCoach';
-    case 'Chat':
-      return 'Links to learn more';
-    case 'Profile':
-      return 'Profile page'
-  }
 }

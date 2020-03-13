@@ -4,9 +4,17 @@ import AlternativeProduct from "./AlternativeProduct";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default function Product(props) {
-  let jsx = props.data.Alternatives.map(id => {
+  let jsx;
+
+  if(props.data.Alternatives){
+    jsx = props.data.Alternatives.map(id => {
     return <AlternativeProduct key={id} id={id} />;
   });
+  }
+
+  
+  
+  
 
   return (
     <View style={styles.container}>
@@ -14,7 +22,7 @@ export default function Product(props) {
       <Text>barcode: {props.data.Barcode.text}</Text>
       <Text>id: {props.id}</Text>
       <Text style={styles.subtitle}>Alternatieven: </Text>
-      <ScrollView horizontal={true}>{jsx}</ScrollView>
+      <ScrollView horizontal={true}>{jsx?jsx: <Text style={styles.subtle}>geen Alternatieven</Text>}</ScrollView>
     </View>
   );
 }
@@ -36,5 +44,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
     margin: 20,
     marginBottom: 0
+  }, subtle:{
+    color: '#8c8c8c',
+    marginTop: 20
   }
 });

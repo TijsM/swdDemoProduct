@@ -42,7 +42,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 25,
     alignItems: 'center', 
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: "#abd4ff", 
+    marginHorizontal: 30,
+    borderRadius: 20
   },
   title:{
     fontSize: 12
