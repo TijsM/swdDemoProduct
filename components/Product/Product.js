@@ -4,15 +4,20 @@ import AlternativeProduct from "./AlternativeProduct";
 import * as consts from "../../constants/airtable";
 
 
+
 export default function Product(props) {
 
+  let jsx = props.data.Alternatives.map((id) => {
+    return <AlternativeProduct
+    id = {id}/>
+  })
 
-  
   return (
     <View style={styles.container}>
       <Text>name: {props.data.Product}</Text>
       <Text>barcode: {props.data.Barcode.text}</Text>
       <Text>id: {props.id}</Text>
+      {jsx}
     </View>
   );
 }
