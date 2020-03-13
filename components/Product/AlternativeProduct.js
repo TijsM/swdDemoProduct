@@ -4,8 +4,10 @@ import * as consts from "../../constants/airtable";
 
 export default function AlternativeProduct(props) {
 
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState();
 
+  console.log("props:")
+  console.log(props);
 
   useEffect(() => {
     const fetchData  = async ()=> {
@@ -14,13 +16,14 @@ export default function AlternativeProduct(props) {
           "Authorization": "Bearer " + consts.AIRTABLE_KEY
         }
       })
-      setProduct(await res.json())
+      console.log(await res.json())
+      // setProduct(await res.json())
     }
 
     fetchData();
   }, [])
 
-  console.log('----------')
+  console.log('product from API:')
   console.log(JSON.stringify(product));
   
 
@@ -29,7 +32,7 @@ export default function AlternativeProduct(props) {
   return (
     <View>
       <Text>alternatief id: {props.id}</Text>
-      <Text>alternatief naam: {product.fields.Name}</Text>
+      <Text>alternatief naam: {product?product.fields.Name: "loading"}</Text>
     </View>
   );
 }

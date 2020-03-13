@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import AlternativeProduct from "./AlternativeProduct";
-import * as consts from "../../constants/airtable";
 
 
 
 export default function Product(props) {
   let jsx = props.data.Alternatives.map((id) => {
     return <AlternativeProduct
+    key ={id}
     id = {id}/>
   })
 
