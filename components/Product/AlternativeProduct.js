@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderWidth: 1,
     borderColor: "#abd4ff",
-    marginHorizontal: 30,
+    marginRight: 30,
     borderRadius: 20
   },
   title: {

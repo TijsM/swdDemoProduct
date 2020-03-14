@@ -45,16 +45,21 @@ export default function Motivation(props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#87ffa5",
+    backgroundColor: "#78ff83",
     padding: 5,
     borderRadius: 8,
     margin: 10,
     marginTop: 25,
-    maxWidth: 125
+    minWidth: 75,
+    minHeight: 50,
+    maxWidth: 125,
+    
   },
   text: {
+      margin: "auto",
     color: "#ffffff",
     textAlign: "center",
-    fontSize: 12
+    fontSize: 12,
+    textAlignVertical: "center"
   }
 });

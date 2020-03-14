@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import * as consts from "../../constants/airtable";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function ProductInfo(props) {
   const [info, setInfo] = useState();
@@ -18,37 +19,71 @@ export default function ProductInfo(props) {
   }, []);
 
   let jsx = undefined;
-
   let nutrients = undefined;
+  let nutriments = undefined;
   if (info) {
     if (info.status === 1) {
       //-- NUTRI WAARDEN
       if (Object.keys(info.product.nutrient_levels).length !== 0) {
         nutrients = Object.keys(info.product.nutrient_levels).map(entry => {
-          console.log(entry);
-          console.log(info.product.nutrient_levels[entry]);
+          let styleColor;
+          if (info.product.nutrient_levels[entry] === "high") {
+            styleColor = "nutriRed";
+          } else if (info.product.nutrient_levels[entry] === "low") {
+            styleColor = "nutriGreen";
+          } else {
+            styleColor = "nutriNeutral";
+          }
 
           return (
-            <Text>
+            <Text style={styles[styleColor]} key={entry}>
               {entry}: {info.product.nutrient_levels[entry]}
             </Text>
           );
         });
       } else {
-        return <Text style={styles.subtle}>geen informatie over de nutri waarden</Text>;
+        return (
+          <Text style={styles.subtle}>
+            geen informatie over de nutri waarden
+          </Text>
+        );
       }
 
-
       //-- NUTRIMENTS
-
-      
+      if (Object.keys(info.product.nutriments).length > 0) {
+        nutriments = Object.keys(info.product.nutriments).map(entry => {
+          return (
+            <Text style={styles.nutriNeutral} key={entry}>
+              {entry}: {info.product.nutriments[entry]}
+            </Text>
+          );
+        });
+      } else {
+        return (
+          <Text style={styles.subtle}>geen informatie over de nutrimenten</Text>
+        );
+      }
 
       //-- CONTAINER
       jsx = (
         <View>
           <Text>barcode: {props.barcode}</Text>
-          <Text style={styles.subtitle}>Nutri waarden: </Text>
-          <View style={styles.nutriContainer}>{nutrients}</View>
+          <Text style={styles.subtitle}>Relatieve nutri waarden: </Text>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            style={styles.horizontalContainer}
+            horizontal={true}
+          >
+            {nutrients}
+          </ScrollView>
+          <Text style={styles.subtitle}>Absolute nutri waarden: </Text>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            style={styles.horizontalContainer}
+            horizontal={true}
+          >
+            {nutriments}
+          </ScrollView>
         </View>
       );
     } else {
@@ -71,9 +106,36 @@ const styles = StyleSheet.create({
   nutriContainer: {
     margin: 10,
     marginLeft: 0
-  }, 
+  },
   subtle: {
     color: "#8c8c8c",
     marginTop: 20
+  },
+  horizontalContainer: {
+    marginVertical: 10
+  },
+  nutriNeutral: {
+    backgroundColor: "#d1d1d1",
+    marginHorizontal: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 13,
+    borderRadius: 15,
+    color: "#ffffff"
+  },
+  nutriRed: {
+    backgroundColor: "#ff787f",
+    marginHorizontal: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 13,
+    borderRadius: 15,
+    color: "#ffffff"
+  },
+  nutriGreen: {
+    backgroundColor: "#78ff83",
+    marginHorizontal: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 13,
+    borderRadius: 15,
+    color: "#ffffff"
   }
 });
