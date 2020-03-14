@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import * as consts from "../../constants/airtable";
-import { enableExpoCliLogging } from "expo/build/logs/Logs";
 
 export default function Motivation(props) {
   const [motivation, setMotivation] = useState([]);
@@ -34,7 +33,6 @@ export default function Motivation(props) {
 
   let jsx = null;
   if (motivation.length > 0) {
-    console.log(motivation.length);
     jsx = (
       <View style={styles.container}>
         <Text style={styles.text}>{motivation[0].fields.Name}</Text>

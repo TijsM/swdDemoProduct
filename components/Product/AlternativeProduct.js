@@ -18,7 +18,6 @@ export default function AlternativeProduct(props) {
       );
       setProduct(await res.json());
     };
-
     fetchData();
   }, []);
 
@@ -28,10 +27,7 @@ export default function AlternativeProduct(props) {
         {product ? product.fields.Name : "loading"}
       </Text>
       <Text>{props.id}</Text>
-      {
-        product? <Motivation data={product} /> : null
-      }
-     
+      {product ? <Motivation data={product} /> : null}
     </View>
   );
 }

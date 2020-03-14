@@ -37,7 +37,6 @@ export default function ScanScreen() {
 
   //when the code was scanned successfully, give a message with the url
   const handleBarCodeScanned = async ({ type, data }) => {
-    console.log("scanned");
     setScanned(true);
 
     const productFromBarcode = products.find(prod => {

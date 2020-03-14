@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import AlternativeProduct from "./AlternativeProduct";
 import { ScrollView } from "react-native-gesture-handler";
+import ProductInfo from "./ProductInfo";
 
 export default function Product(props) {
   let jsx;
@@ -15,8 +16,10 @@ export default function Product(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.data.Product}</Text>
-      <Text>barcode: {props.data.Barcode.text}</Text>
       <Text>id: {props.id}</Text>
+
+      <ProductInfo barcode={props.data.Barcode.text} />
+
       <Text style={styles.subtitle}>Alternatieven: </Text>
       <ScrollView horizontal={true}>
         {jsx ? jsx : <Text style={styles.subtle}>geen Alternatieven</Text>}
