@@ -12,8 +12,6 @@ export default function Product(props) {
     });
   }
 
-  console.log(props)
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.data.Product}</Text>
