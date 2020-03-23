@@ -8,14 +8,7 @@ export default function AlternativeProduct(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(
-        `https://api.airtable.com/v0/app9kjur4Xg1qee7O/Products/${props.id}`,
-        {
-          headers: {
-            Authorization: "Bearer " + consts.AIRTABLE_KEY
-          }
-        }
-      );
+        
       setProduct(await res.json());
     };
     fetchData();
@@ -26,7 +19,7 @@ export default function AlternativeProduct(props) {
       <Text style={styles.title}>
         {product ? product.fields.Name : "loading"}
       </Text>
-      <Text>{props.id}</Text>
+      {/* <Text>{props.id}</Text> */}
       {product ? <Motivation data={product} /> : null}
     </View>
   );
@@ -35,7 +28,7 @@ export default function AlternativeProduct(props) {
 const styles = StyleSheet.create({
   container: {
     width: 200,
-    height: 150,
+    height: 150, 
     maxHeight: 200,
     flex: 1,
     marginTop: 25,

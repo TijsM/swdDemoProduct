@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Tab Navigation Template",
-    "slug": "swfDemoProduct",
+    "name": "Demo Smart with food",
+    "slug": "swfdemo",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -26,6 +26,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "demo smart with food - scan functionaliteit",
+    "githubUrl": "https://github.com/TijsM/swdDemoProduct"
   }
 }
